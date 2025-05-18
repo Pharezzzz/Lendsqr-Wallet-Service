@@ -41,6 +41,10 @@ app.post('/users', asyncHandler(checkKarmaBlacklist), asyncHandler(async (req, r
     res.status(201).json(user);
   }));
 
+  app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok', message: 'Server is running!' });
+  });  
+
 const server = app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
