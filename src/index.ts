@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import walletRoutes from './routes/walletRoutes';
 import express, { Request, Response, NextFunction } from 'express';
 import knex from 'knex';
-import knexConfig from '../knexfile';
+const knexConfig = require('../knexfile.js');
 import { checkKarmaBlacklist } from './middleware/checkKarmaBlacklist';
 
 // Load environment variables depending on environment
