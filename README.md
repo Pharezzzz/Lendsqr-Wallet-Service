@@ -12,8 +12,7 @@ The Lendsqr Wallet Service is a backend API built with Node.js, TypeScript, and 
 - **Jest** for testing
 
 ## ER Diagram
-
-*See the above link for the full entity-relationship diagram.*
+View online: [Lendsqr Wallet ER Diagram](https://dbdesigner.page.link/mpEe6wD2Mg5gQAk79)
 
 ## Project Structure
 - ├── __tests__/                   # Jest test suites
