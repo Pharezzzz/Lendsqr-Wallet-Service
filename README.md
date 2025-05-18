@@ -74,6 +74,9 @@ View online: [Lendsqr Wallet ER Diagram](https://dbdesigner.page.link/mpEe6wD2Mg
     ```bash
    npm test
 
+## Blacklist Check (Karma API)
+Before creating a new user account, the service calls the Lendsqr Adjutor Karma API to verify that the user is not blacklisted. If the user is listed, the onboarding is blocked and an appropriate error is returned.
+
 ## API Endpoints
 1. User Onboarding
    ```makefile
