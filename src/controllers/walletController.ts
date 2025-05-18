@@ -158,12 +158,25 @@ export const transferBetweenWallets = async (req: Request, res: Response): Promi
   try {
     const { fromUserId, toUserId, amount } = req.body;
 
+    // Validate required fields
     if (!fromUserId || !toUserId || !amount || isNaN(amount)) {
-      return res.status(400).json({ message: 'fromUserId, toUserId, and amount are required, and amount must be a number.' });
+      return res.status(400).json({
+        message: 'fromUserId, toUserId, and amount are required, and amount must be a number.'
+      });
     }
 
+    // Validate that the authenticated user matches fromUserId
+    if (req.userId !== fromUserId) {
+      return res.status(403).json({
+        message: 'Forbidden: You can only transfer from your own account.'
+      });
+    }
+
+    // Prevent transfer to self
     if (fromUserId === toUserId) {
-      return res.status(400).json({ message: 'Cannot transfer to the same user.' });
+      return res.status(400).json({
+        message: 'Cannot transfer to the same user.'
+      });
     }
 
     // Start transaction
