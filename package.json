@@ -5,7 +5,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
     "dev": "nodemon --exec ts-node src/index.ts",
-    "migrate": "ts-node knex migrate:latest --knexfile knexfile.js",
+    "migrate": "knex migrate:latest --knexfile knexfile.js",
     "build": "tsc",
     "start": "node ./dist/index.js",
     "heroku-postbuild": "npm run build"
