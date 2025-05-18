@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import walletRoutes from './routes/walletRoutes';
 import express, { Request, Response, NextFunction } from 'express';
 import knex from 'knex';
-const knexConfig = require('../knexfile.js');
+import knexConfig from '../knexfile.js';
 import { checkKarmaBlacklist } from './middleware/checkKarmaBlacklist';
 
 // Load environment variables depending on environment
@@ -41,9 +41,15 @@ app.post('/users', asyncHandler(checkKarmaBlacklist), asyncHandler(async (req, r
     res.status(201).json(user);
   }));
 
-  app.get('/api/health', (req, res) => {
+app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'Server is running!' });
-  });  
+});
+
+// Add error handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal server error' });
+  });
 
 const server = app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
