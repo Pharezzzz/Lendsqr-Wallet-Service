@@ -51,9 +51,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ error: 'Internal server error' });
   });
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
 
-export { app, server };
+export { app };
 
