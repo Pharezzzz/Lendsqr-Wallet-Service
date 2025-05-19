@@ -71,7 +71,8 @@ module.exports = {
     },
     migrations: {
       directory: path.resolve(__dirname, 'src', 'database', 'migrations'),
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
+      extension: 'ts'
     }
   }
 
