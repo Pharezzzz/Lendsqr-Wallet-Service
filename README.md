@@ -3,6 +3,10 @@
 ## Project Overview
 The Lendsqr Wallet Service is a backend API built with Node.js, TypeScript, and Knex.js, designed to power wallet functionalities for a mobile lending app. It allows users to create accounts, fund wallets, transfer funds, withdraw money, and ensures users flagged in the Lendsqr Adjutor Karma blacklist cannot onboard.
 
+✅ Deployed on **Heroku**, using **JawsDB (MySQL)** in production.
+
+---
+
 ## Tech Stack
 - **Node.js (LTS)**
 - **TypeScript**
@@ -11,8 +15,12 @@ The Lendsqr Wallet Service is a backend API built with Node.js, TypeScript, and 
 - **MySQL** (JawsDB on Heroku for production)
 - **Jest** for testing
 
+---
+
 ## ER Diagram
 View online: [Lendsqr Wallet ER Diagram](https://dbdesigner.page.link/mpEe6wD2Mg5gQAk79)
+
+---
 
 ## Project Structure
 - ├── __tests__/                   # Jest test suites
@@ -26,15 +34,18 @@ View online: [Lendsqr Wallet ER Diagram](https://dbdesigner.page.link/mpEe6wD2Mg
 - │   ├── db.ts                    # Knex instance and DB connection
 - │   └── index.ts                 # App entrypoint
 - ├── .env                         # Development environment variables
+- ├── .env.production              # Production DB
 - ├── .env.test                    # Test environment variables
 - ├── .gitignore                   # Git ignore rules
 - ├── jest.setup.ts                # Jest setup file
 - ├── knexfile.d.ts                # Knex config type definitions
 - ├── knexfile.js                  # Knex config (JS)
+- ├── migrate.ts                   # Migration utility script
 - ├── package.json                 # Scripts and dependencies
 - ├── Procfile                     # Heroku process declaration
 - └── tsconfig.json                # TypeScript configuration
 
+---
 
 ## Setup & Installation
 1. **Clone the repo**  
@@ -61,16 +72,23 @@ View online: [Lendsqr Wallet ER Diagram](https://dbdesigner.page.link/mpEe6wD2Mg
    - DB_USER=root
    - DB_PASSWORD=yourpassword
    - DB_NAME=test_database
+  
+   For Heroku deployment, .env.production is used:
+   - DB_HOST=e11wl4mksauxgu1w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
+   - DB_PORT=3306
+   - DB_USER=diz578e7u8rqw7h9
+   - DB_PASSWORD=t5lm8sm59vnrvr5b
+   - DB_NAME=ao63xmndl1vdtc4t
 
-4. **Run migrations**
+5. **Run migrations**
    ```bash
-   npx knex migrate:latest --env development
+   npx cross-env NODE_ENV=development ts-node migrate.ts
 
-5. **Start the server**
+6. **Start the server**
    ```bash
    npx ts-node src/index.ts
 
-6. **Run tests**
+7. **Run tests**
     ```bash
    npm test
 
@@ -97,7 +115,7 @@ Before creating a new user account, the service calls the Lendsqr Adjutor Karma 
    _Blacklist check middleware ensures no blacklisted identity is onboarded._
 
 2. Fund Wallet
-   ```yaml
+   ```makefile
    POST /wallet/fund
    Headers:
       x-fake-token: token123
@@ -135,7 +153,7 @@ Before creating a new user account, the service calls the Lendsqr Adjutor Karma 
       }
 
 5. Balance & Transaction History
-   ```bash
+   ```makefile
    GET /wallet/balance/:userId
    GET /wallet/transactions/:userId
 
@@ -148,7 +166,9 @@ Tests cover positive and negative scenarios for funding, auth, and business logi
 https://pharez-ayodele-lendsqr-be-test-0dc8fe162aa8.herokuapp.com/api/health
 
 - Database: JawsDB MySQL, automatically migrated via
-npx knex migrate:latest --env production
+npx cross-env NODE_ENV=production ts-node migrate.ts
+
+✅ Connected and migrated database tables to JawsDB in production environment.
 
 ### Design Decisions
 - TypeScript for static typing and maintainability.
