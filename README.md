@@ -92,8 +92,12 @@ View online: [Lendsqr Wallet ER Diagram](https://dbdesigner.page.link/mpEe6wD2Mg
     ```bash
    npm test
 
+---
+
 ## Blacklist Check (Karma API)
 Before creating a new user account, the service calls the Lendsqr Adjutor Karma API to verify that the user is not blacklisted. If the user is listed, the onboarding is blocked and an appropriate error is returned.
+
+---
 
 ## API Endpoints
 1. User Onboarding
@@ -157,9 +161,13 @@ Before creating a new user account, the service calls the Lendsqr Adjutor Karma 
    GET /wallet/balance/:userId
    GET /wallet/transactions/:userId
 
+---
+
 ### Testing
 Jest is configured to run under NODE_ENV=test.
 Tests cover positive and negative scenarios for funding, auth, and business logic.
+
+---
 
 ### Deployment
 - Heroku: App deployed at
@@ -170,12 +178,16 @@ npx cross-env NODE_ENV=production ts-node migrate.ts
 
 ✅ Connected and migrated database tables to JawsDB in production environment.
 
+---
+
 ### Design Decisions
 - TypeScript for static typing and maintainability.
 - Knex.js for SQL-level control and transaction scoping.
 - Middleware pattern for auth, blacklist checks, and async error handling.
 - Faux tokens to simulate authentication without full OAuth/JWT complexity.
 - Jest for unit tests, ensuring reliability and catching regressions.
+
+---
 
 ### Next Steps
 - Integrate real authentication (OAuth/JWT).
